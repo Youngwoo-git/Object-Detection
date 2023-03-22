@@ -19,62 +19,8 @@
 
 
 
-위의 모델들에 대해 테스트하는 데이터셋은
-http://49.50.163.17:8888/lab 의 /home/ubuntu/workspace/dataset/eval 폴더에서 찾아보실 수 있습니다.
+위의 모델들에 대해 테스트하는 데이터셋에 대한 공개 여부는 비공개입니다.
 
-* 입력된 커맨드 정보: command list.ipynb
-* 선택된 이미지들 위치: images/
-* 해당 이미지들에 대한 coco 정보: selected_instances_val2017.json
-* yolor_p6 결과: yolor_p6_result/
-* yolox_s 결과: yolox_s_result/
-* yolox_x 결과: yolox_x_result/
-
-
-# Ongoing
-
-## yolov5
-
-Objects365.yaml 학습 진행 중.
-```bash
-python -m torch.distributed.run --nproc_per_node 3 train.py --batch 66 --data coco.yaml --weights yolov5s.pt --device 0,1,2 --data Objects365.yaml
-```
-
-## DAB-DETR
-코드에서 바로 Swin backbone을 적용하여 실행하면 실행이 안됨, 코드 일부 수정 필요, 현재 수정중
-
-### Todo
-1. Swin backbone 적용하여 성능평가
-2. multiscale model인 DAB-Deformable-DETR모델에 Swin backbone 적용하여 성능평가
-3. SOTA인 DINO 구현하기
-
-## SwinV2+HTC
-SwinV2가 mmdetection에 올라가있지 않음, 적용시키려면 Swin 모듈을 따로 import 해서 사용해야 할 듯함
-SwinV2-large config 찾기 어려움
-
-### Todo
-1. SwinV2 + HTC 구현
-
-## DynamicHead
-1. install 해야 함
-2. dependent 패키지 확인해야함
-3. detection 결과를 성능평가 툴에 맞추어 출력해야함
-
-### Todo
-1. detection 코드 수정
-
-### 테스트 결과
-1. 자체적 mAP, mAP50, mAP75 결과 및항목별 AP 제공.
-2. 사용 방법은 config 파일의 DATASET.TEST 의 리스트에 customized 된 데이터셋 이름을 추가하면 됨.
-3. customized 된 데이터셋을 추가하는 방법은 train_net.py 상단에 아래와 같은 코드를 추가:
-```bash
-from detectron2.data.datasets import register_coco_instances
-register_coco_instances("map_eval_testset", {}, "/home/ubuntu/workspace/dataset/eval/selected_instances_val2017.json", "/home/ubuntu/workspace/data/eval/images")
-# 괄호 안 parameter는 각각 순서대로 정의된 데이터셋 이름, 추가 데이터정보, annotation (coco형식) 위치, 이미지 디렉토리 절대경로 이다
-```
-
-## GLIP
-1. install 해야 함
-2. 구조 이해 및 성능 평가 진행
 
 # 성능 평가
 
@@ -103,7 +49,7 @@ detection 결과 리스트 = [[x1, y1, x2, y2, conf, cls], [x1, y1, x2, y2, conf
 
 # 해당 딕셔너리들을 담은 리스트를 json 파일로 dump 하여주세요
 
-files = sorted(glob('/home/ubuntu/workspace/data/eval/images/*'))
+files = sorted(glob('path/to/directory/*'))
 dict_list = []
 
 for file in files:
