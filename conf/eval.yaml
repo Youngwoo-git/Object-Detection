@@ -1,0 +1,4 @@
+gt_path: "/home/ubuntu/workspace/data/eval/selected_instances_val2017.json"
+nc: 80
+device: "1"
+target_path: "/home/ubuntu/workspace/data/eval/yolor_p6.json"
